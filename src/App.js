@@ -1,25 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import LoginForm from './components/LoginForm'
+import Navigator from './components/Navigator'
+import Records from './components/Tables/Records';
+import Header from './components/header';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    isUnloginned: false
+  }
+
+  hadleLoginClick = () => {
+    if (this.state.isUnloginned === false){
+      this.setState({isUnloginned: true})
+    }
+    else{
+      this.setState({isUnloginned: false})
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.isUnloginned? <div >
+          <div><Header onButtonClick={this.hadleLoginClick} /></div>
+          <div className='MainScreen'>
+            <Navigator />
+            <Records />
+            </div>
+        </div>: <LoginForm onButtonClick={this.hadleLoginClick} />}
+      </div>
+    );
+  }
 }
 
 export default App;

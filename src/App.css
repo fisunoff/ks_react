@@ -36,3 +36,43 @@
     transform: rotate(360deg);
   }
 }
+
+
+.MainScreen{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigator{
+  background-color: lightgrey;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.dashboard{
+  background-color: white;
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+}
+
+.records{
+  background-color: white;
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+}
+
+.escapeBtn{
+  color: red;
+  justify-content: right;
+}
+
+.header{
+  justify-content: left;
+}
