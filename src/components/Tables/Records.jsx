@@ -53,12 +53,13 @@ class Records extends React.Component{
     }
 
     componentDidMount = async () => {
+        const {token} = this.props;
         let todos = []
         try{
             const result = await fetch(url, {
                 method: "GET",
                 headers:{
-                    'Authorization': 'Token ' + this.token
+                    'Authorization': 'Token ' + token
                 }
             })
             todos = await result.json();

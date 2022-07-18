@@ -29,7 +29,7 @@ class LoginForm extends React.Component{
             })
             let token_tmp = await result.json();
             if ('token' in token_tmp){
-                setToken(token_tmp);
+                setToken(token_tmp.token);
                 onButtonClick();
             }
             else{

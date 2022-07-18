@@ -22,17 +22,16 @@ class App extends React.Component {
 
   setToken = (s_token) => {
     this.setState({token: s_token})
-    console.log(s_token);
   }
 
   render() {
     return (
       <div>
         {this.state.isUnloginned? <div >
-          <div><Header onButtonClick={this.hadleLoginClick} token = {this.state.token} /></div>
+          <div><Header onButtonClick={this.hadleLoginClick} /></div>
           <div className='MainScreen'>
             <Navigator />
-            <Records />
+            <Records token = {this.state.token} />
             </div>
         </div>: <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setToken} />}
       </div>
