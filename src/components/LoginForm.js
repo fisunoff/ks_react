@@ -15,6 +15,7 @@ class LoginForm extends React.Component{
 
     tryLogin = async () => {
         const {onButtonClick} = this.props;
+        const {setToken} = this.props;
         let username = this.loginRef.value;
         let password = this.passwordRef.value;
         try{
@@ -28,6 +29,7 @@ class LoginForm extends React.Component{
             })
             let token_tmp = await result.json();
             if ('token' in token_tmp){
+                setToken(token_tmp);
                 onButtonClick();
             }
             else{

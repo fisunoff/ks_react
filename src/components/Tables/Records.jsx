@@ -3,7 +3,7 @@ import { DataGrid, GridToolbarQuickFilter, GridLinkOperator, } from '@mui/x-data
 import Box from '@mui/material/Box';
 
 const url = "http://fisunoff.pythonanywhere.com/api/record/";
-const default_token = "26041d0e2e5563b580ba8bb9a59bcf00724609fd"
+
 
 const columns = [
     {
@@ -58,7 +58,7 @@ class Records extends React.Component{
             const result = await fetch(url, {
                 method: "GET",
                 headers:{
-                    'Authorization': 'Token ' + default_token
+                    'Authorization': 'Token ' + this.token
                 }
             })
             todos = await result.json();
