@@ -9,6 +9,10 @@ class LoginForm extends React.Component{
     this.passwordRef = null;
   }
 
+  state = {
+    failedLogin: false
+  }
+
     tryLogin = async () => {
         const {onButtonClick} = this.props;
         let username = this.loginRef.value;
@@ -27,7 +31,7 @@ class LoginForm extends React.Component{
                 onButtonClick();
             }
             else{
-                <div>Неверный логин или пароль</div>
+                this.setState({failedLogin: true});
             }
 
         }catch (err){
@@ -39,12 +43,16 @@ class LoginForm extends React.Component{
 
 
     render(){
+        let {failedLogin} = this.state;
         return (
             <div>
                 <div>Вход</div>
                 <div>Логин: <input type="text" name="username" size="20" maxLength="50" ref={ref => this.loginRef = ref} /></div>
                 <div>Пароль: <input type="password" name="password" size="20" maxLength="50" ref={ref => this.passwordRef = ref} /></div>
                 <button onClick={this.tryLogin}>Войти</button>
+                {failedLogin? <div className='fail'>Неверный логин или пароль!</div>:
+                    <div></div>
+                }
             </div>
         )
     }
