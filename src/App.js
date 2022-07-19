@@ -4,6 +4,8 @@ import LoginForm from './components/LoginForm'
 import Navigator from './components/Navigator'
 import Records from './components/Tables/Records';
 import NewAuthor from './components/Tables/NewAuthor';
+import NewRecord from './components/Tables/NewRecord';
+import NewTag from './components/Tables/NewTag';
 import Header from './components/header';
 
 class App extends React.Component {
@@ -51,6 +53,14 @@ class App extends React.Component {
               case 'newauthor':
                 return (
                   <NewAuthor token = {this.state.token} />
+                )
+              case 'newrecord':
+                return (
+                  <NewRecord token = {this.state.token} />
+                )
+              case 'newtag':
+                return (
+                  <NewTag token = {this.state.token} />
                 )
               case 'tags':
                 return (

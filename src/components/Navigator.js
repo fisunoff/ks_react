@@ -1,12 +1,20 @@
 import React from 'react';
-import Records from './Tables/Records';
-import Authors from './Tables/Authors';
 
 const buttonArray = [
     {
         text: 'Новый автор',
         icon: '',
         title: 'newauthor'
+    },
+    {
+        text: 'Новая запись',
+        icon: '',
+        title: 'newrecord'
+    },
+    {
+        text: 'Новый тэг',
+        icon: '',
+        title: 'newtag'
     },
     {
         text: 'Все теги',
@@ -33,7 +41,7 @@ class Navigator extends React.Component{
             <div className='navigator'>
             {buttonArray.map((button) => (
                     <div>
-                        <button role="button" className='nav-button' onClick={changeWindow.bind(this, button.title)}>{button.text}</button>
+                        <button className='nav-button' onClick={changeWindow.bind(this, button.title)}>{button.text}</button>
                     </div>
                 ))}
             </div>

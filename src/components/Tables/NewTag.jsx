@@ -1,26 +1,26 @@
 import React from 'react';
 
-const AUTHORS_URL = "https://fisunoff.pythonanywhere.com/api/author/"
+const TAGS_URL = "https://fisunoff.pythonanywhere.com/api/tags/"
 
-class NewAuthor extends React.Component{
+class NewTag extends React.Component{
     state = {
         create_success: undefined,
     }
 
     regAuthor = async () => {
         const {token} = this.props;
-        let name = this.nameRef.value;
-        let department = this.departmentRef.value;
-        let is_active = this.isactiveRef.value;
+        let title = this.titleRef.value;
+        let priority = this.priorityRef.value;
+        let active_tag = this.isActiveRef.value;
         try{
-            const result = await fetch(AUTHORS_URL, {
+            const result = await fetch(TAGS_URL, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json',
                 'Authorization': 'Token ' + token },
                 body: JSON.stringify({
-                    'name': name,
-                    'department': department,
-                    'is_active': is_active
+                    'tag_title': title,
+                    'priority': priority,
+                    'active_tag': active_tag
                 })
             })
             let tmp = await result.json();
@@ -45,12 +45,12 @@ class NewAuthor extends React.Component{
         return (
             <div className='leftmodal'>
                 <div><h1>Новый автор</h1></div>
-                <div>Имя: <input type="text" name="name" size="30" maxLength="50" ref={ref => this.nameRef = ref} /></div>
-                <div>Подразделение: <input type="text" name="department" size="30" maxLength="100" ref={ref => this.departmentRef = ref} /></div>
-                <div>Действующий сотрудник <input type="checkbox" size="20" ref={ref => this.isactiveRef = ref}/></div>
+                <div>Название: <input type="text" name="tag_title" size="30" maxLength="50" ref={ref => this.titleRef = ref} /></div>
+                <div>Приоритет: <input type="text" name="priority" size="30" maxLength="100" ref={ref => this.priorityRef = ref} /></div>
+                <div>Тэг используется <input type="checkbox" size="20" ref={ref => this.isActiveRef = ref}/></div>
                 
                 <button onClick={this.regAuthor}>Создать</button>
-                {create_success? <div><h3 className='success'>Автор добавлен!</h3></div>:
+                {create_success? <div><h3 className='success'>Тэг добавлен!</h3></div>:
                     <div></div>
                 }
                 
@@ -59,4 +59,4 @@ class NewAuthor extends React.Component{
     }
 }
 
-export default NewAuthor;
+export default NewTag;
