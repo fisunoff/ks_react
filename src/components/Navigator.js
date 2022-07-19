@@ -1,31 +1,39 @@
 import React from 'react';
+import Records from './Tables/Records';
+import Authors from './Tables/Authors';
 
 const buttonArray = [
     {
         text: 'Новый автор',
-        icon: ''
+        icon: '',
+        title: 'newauthor'
     },
     {
-        text: 'Новый тег',
-        icon: ''
+        text: 'Все теги',
+        icon: '',
+        title: 'tags'
     },
     {
-        text: 'Новая запись',
-        icon: ''
+        text: 'Все авторы',
+        icon: '',
+        title: 'authors'
+
     },
     {
         text: 'Все записи',
-        icon: ''
+        icon: '',
+        title: 'records'
     }
 ]
 
 class Navigator extends React.Component{
     render(){
+        const {changeWindow} = this.props;
         return (
             <div className='navigator'>
             {buttonArray.map((button) => (
                     <div>
-                        <button>{button.text}</button>
+                        <button role="button" className='nav-button' onClick={changeWindow.bind(this, button.title)}>{button.text}</button>
                     </div>
                 ))}
             </div>

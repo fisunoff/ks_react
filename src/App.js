@@ -3,13 +3,15 @@ import React from 'react';
 import LoginForm from './components/LoginForm'
 import Navigator from './components/Navigator'
 import Records from './components/Tables/Records';
+import NewAuthor from './components/Tables/NewAuthor';
 import Header from './components/header';
 
 class App extends React.Component {
   state = {
     isUnloginned: false,
     token: undefined,
-    name: undefined
+    name: undefined,
+    activeWindow: 'record',
   }
 
   hadleLoginClick = () => {
@@ -19,6 +21,10 @@ class App extends React.Component {
     else{
       this.setState({isUnloginned: false})
     }
+  }
+
+  changeWindow = (new_window) => {
+    this.setState({activeWindow: new_window})
   }
 
   setTokenandName = (s_token, t_name) => {
@@ -31,8 +37,32 @@ class App extends React.Component {
         {this.state.isUnloginned? <div >
           <div><Header onButtonClick={this.hadleLoginClick} name={this.state.name} /></div>
           <div className='MainScreen'>
-            <Navigator />
-            <Records token = {this.state.token} />
+            <Navigator changeWindow={this.changeWindow}/>
+            {(() => {  
+            switch (this.state.activeWindow) {
+              case 'records':
+                return (
+                  <Records token = {this.state.token} />
+                )
+              case 'authors':
+                return (
+                  <div>Authors</div>
+                )
+              case 'newauthor':
+                return (
+                  <NewAuthor token = {this.state.token} />
+                )
+              case 'tags':
+                return (
+                  <div>tags</div>
+                )
+              default:
+                return (
+                  <Records token = {this.state.token} />
+                )
+            }
+
+          })()}
             </div>
         </div>: <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setTokenandName} />}
       </div>

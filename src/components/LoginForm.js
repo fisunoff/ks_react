@@ -9,9 +9,9 @@ class LoginForm extends React.Component{
     this.passwordRef = null;
   }
 
-  state = {
-    failedLogin: false
-  }
+    state = {
+        failedLogin: false
+    }
 
     tryLogin = async () => {
         const {onButtonClick} = this.props;

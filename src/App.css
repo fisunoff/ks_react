@@ -59,6 +59,13 @@
   flex-direction:column;
 }
 
+.leftmodal{
+  background-color: white;
+  flex: 6;
+  display: flex;
+  flex-direction:column;
+}
+
 .escapeBtn{
   color: red;
   justify-content: right;
@@ -66,4 +73,12 @@
 
 .header{
   justify-content: left;
+}
+
+.success{
+  color: green;
+}
+
+.fail{
+  color: red;
 }
