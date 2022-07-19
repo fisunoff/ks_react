@@ -9,10 +9,13 @@ class Header extends React.Component{
     render(){
         
 
-        return <div className='header'>
-            Тут будет имя
-            <button onClick={this.handleClick } className='escapeBtn'>Выйти</button>
-        </div>
+        return<div className='App-header'>
+            <div className='header'>
+                {this.props.name}
+            </div>
+            <div className='escapeBtn'><button onClick={this.handleClick } className='escapeBtn' >Выйти</button></div>
+            
+        </div> 
     }
 }
 

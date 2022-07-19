@@ -8,7 +8,8 @@ import Header from './components/header';
 class App extends React.Component {
   state = {
     isUnloginned: false,
-    token: undefined
+    token: undefined,
+    name: undefined
   }
 
   hadleLoginClick = () => {
@@ -20,20 +21,20 @@ class App extends React.Component {
     }
   }
 
-  setToken = (s_token) => {
-    this.setState({token: s_token})
+  setTokenandName = (s_token, t_name) => {
+    this.setState({token: s_token, name: t_name})
   }
 
   render() {
     return (
       <div>
         {this.state.isUnloginned? <div >
-          <div><Header onButtonClick={this.hadleLoginClick} /></div>
+          <div><Header onButtonClick={this.hadleLoginClick} name={this.state.name} /></div>
           <div className='MainScreen'>
             <Navigator />
             <Records token = {this.state.token} />
             </div>
-        </div>: <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setToken} />}
+        </div>: <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setTokenandName} />}
       </div>
     );
   }

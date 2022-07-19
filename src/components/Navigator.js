@@ -1,5 +1,4 @@
 import React from 'react';
-import Records from './Tables/Records';
 
 const buttonArray = [
     {
