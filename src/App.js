@@ -5,6 +5,7 @@ import Navigator from './components/Navigator'
 import Records from './components/Tables/Records';
 import NewAuthor from './components/Tables/NewAuthor';
 import NewRecord from './components/Tables/NewRecord';
+import ViewRecord from './components/Tables/ViewRecord';
 import NewTag from './components/Tables/NewTag';
 import Header from './components/header';
 
@@ -14,6 +15,7 @@ class App extends React.Component {
     token: undefined,
     name: undefined,
     activeWindow: 'record',
+    viewId: undefined,
   }
 
   hadleLoginClick = () => {
@@ -33,6 +35,10 @@ class App extends React.Component {
     this.setState({token: s_token, name: t_name})
   }
 
+  setView = (activeWindow, id) => {
+    this.setState({activeWindow: activeWindow, viewId: id})
+  }
+
   render() {
     return (
       <div>
@@ -44,7 +50,7 @@ class App extends React.Component {
             switch (this.state.activeWindow) {
               case 'records':
                 return (
-                  <Records token = {this.state.token} />
+                  <Records token = {this.state.token} setView = {this.setView}/>
                 )
               case 'authors':
                 return (
@@ -58,6 +64,10 @@ class App extends React.Component {
                 return (
                   <NewRecord token = {this.state.token} />
                 )
+              case 'viewrecord':
+                return (
+                  <ViewRecord token = {this.state.token} viewId = {this.state.viewId} />
+                )
               case 'newtag':
                 return (
                   <NewTag token = {this.state.token} />
@@ -68,7 +78,7 @@ class App extends React.Component {
                 )
               default:
                 return (
-                  <Records token = {this.state.token} />
+                  <Records token = {this.state.token} setView = {this.setView}/>
                 )
             }
 

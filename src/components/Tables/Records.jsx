@@ -2,6 +2,7 @@ import React from 'react';
 import { DataGrid, GridToolbarQuickFilter, GridActionsCellItem, } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PreviewIcon from '@mui/icons-material/Preview';
 
 const url = "http://fisunoff.pythonanywhere.com/api/record/";
 
@@ -52,6 +53,11 @@ class Records extends React.Component{
         }
     }
 
+    GoToRecord = async (id) => {
+        const {setView} = this.props;
+        setView("viewrecord", id);
+    }
+
     columns =  [
     {
         field: 'title',
@@ -74,7 +80,10 @@ class Records extends React.Component{
         field: 'actions',
         type: 'actions',
         getActions: (params) => [
-            <GridActionsCellItem icon={<DeleteIcon />} onClick={this.DeleteRecord.bind(this, params.id)} label="Delete" />
+            <>
+                <GridActionsCellItem icon={<DeleteIcon />} onClick={this.DeleteRecord.bind(this, params.id)} label="Delete" />
+                <GridActionsCellItem icon={<PreviewIcon />} onClick={this.GoToRecord.bind(this, params.id)} label="View" />
+            </>
         ]
     }
 
