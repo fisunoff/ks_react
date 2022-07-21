@@ -92,28 +92,27 @@ class NewRecord extends React.Component{
         
         return (
             <div className='leftmodal'>
-                <div><h1>Новая запись</h1></div>
-                <div>Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} /></div>
-                <div>Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} /></div>
-                <div> Автор:
+                <div key="modal_new_title">Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} /></div>
+                <div key="modal_new_text">Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} /></div>
+                <div key="modal_new_author"> Автор:
                     <select ref={ref => this.authorRef = ref}>
                         {this.state.authors.map((data) => (
                         <option value={data.id}>{data.name}</option>
                         ))}
                     </select>
                 </div>
-                <div> Тэг:
+                <div key="modal_new_tag"> Тэг:
                     <select ref={ref => this.tagRef = ref}>
                         {this.state.tags.map((data) => (
                         <option value={data.id}>{data.tag_title}</option>
                         ))}
                     </select>
                 </div>
-                <div>Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue="Новый"/></div>
+                <div key="modal_new_status">Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue="Новый"/></div>
                 
-                <button onClick={this.regRecord}>Создать</button>
-                {create_success? <div><h3 className='success'>Запись добавлена!</h3></div>:
-                    <div></div>
+                <button key="modal_new_create" onClick={this.regRecord}>Создать</button>
+                {create_success? <div key="modal_new_success"><h3 className='success'>Запись добавлена!</h3></div>:
+                    <></>
                 }
                 
             </div>

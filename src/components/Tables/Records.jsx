@@ -125,14 +125,14 @@ class Records extends React.Component{
         return <div className='records'>
             <h1>Записи</h1>
             <button><a href="#openModal">Новая запись</a></button>
-            <div id="openModal" class="modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">Название</h3>
-                        <a href="#close" title="Close" class="close">×</a>
+            <div id="openModal" className="modal">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h3 className="modal-title">Новая запись</h3>
+                        <a href="#close" title="Close" className="close">×</a>
                     </div>
-                    <div class="modal-body">    
+                    <div className="modal-body">    
                         <NewRecord token = {this.props.token} update={this.DoUpdateAfterModal} className='modal-content'/>
                     </div>
                     </div>

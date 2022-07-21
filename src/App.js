@@ -41,10 +41,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.isUnloginned? <div >
-          <div><Header onButtonClick={this.hadleLoginClick} name={this.state.name} /></div>
-          <div className='MainScreen'>
+          <Header onButtonClick={this.hadleLoginClick} name={this.state.name} />
+          <div key='mainscreen' className='MainScreen'>
             <Navigator changeWindow={this.changeWindow}/>
             {(() => {  
             switch (this.state.activeWindow) {
@@ -85,7 +85,7 @@ class App extends React.Component {
           })()}
             </div>
         </div>: <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setTokenandName} />}
-      </div>
+      </>
     );
   }
 }

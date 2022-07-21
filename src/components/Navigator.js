@@ -35,7 +35,7 @@ class Navigator extends React.Component{
         return (
             <div className='navigator'>
             {buttonArray.map((button) => (
-                    <div>
+                    <div key={button.title + 'div'}>
                         <button className='nav-button' key={button.title} onClick={changeWindow.bind(this, button.title)}>{button.text}</button>
                     </div>
                 ))}
