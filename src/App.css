@@ -83,3 +83,7 @@
 .fail {
   color: red;
 }
+
+button {
+  cursor: pointer;
+}

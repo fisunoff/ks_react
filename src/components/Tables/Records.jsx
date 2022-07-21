@@ -124,7 +124,7 @@ class Records extends React.Component {
 
         return <div className='records'>
             <h1>Записи</h1>
-            <button><a href="#openModal">Новая запись</a></button>
+            <a href="#openModal"><button>Новая запись</button></a>
             <div id="openModal" className="modal">
                 <div className="modal-dialog">
                     <div className="modal-content">

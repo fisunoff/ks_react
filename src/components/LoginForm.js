@@ -7,11 +7,21 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.loginRef = null;
-        this.passwordRef = null;
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     state = {
         failedLogin: false
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+    handleSubmit(event) {
+        this.tryLogin();
+        event.preventDefault();
     }
 
     tryLogin = async () => {
@@ -58,15 +68,15 @@ class LoginForm extends React.Component {
     render() {
         let { failedLogin } = this.state;
         return (
-            <div>
-                <div>Вход</div>
-                <div>Логин: <input type="text" name="username" size="20" maxLength="50" ref={ref => this.loginRef = ref} /></div>
-                <div>Пароль: <input type="password" name="password" size="20" maxLength="50" ref={ref => this.passwordRef = ref} /></div>
-                <button onClick={this.tryLogin}>Войти</button>
+            <form key='loginForm' onSubmit={this.handleSubmit} className="loginWindow">
+                <h1>Вход</h1>
+                <label>Логин: <input type="text" name="username" size="20" maxLength="50" ref={ref => this.loginRef = ref} /></label>
+                <label>Пароль: <input type="password" name="password" size="20" maxLength="50" ref={ref => this.passwordRef = ref} /></label>
+                <input type="submit" value="Войти" />
                 {failedLogin ? <div className='fail'>Неверный логин или пароль!</div> :
                     <div></div>
                 }
-            </div>
+            </form>
         )
     }
 }
