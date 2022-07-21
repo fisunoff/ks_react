@@ -1,4 +1,5 @@
 import React from 'react';
+import CookiesManager from 'js-cookie';
 
 const GET_TOKEN_URL = "http://fisunoff.pythonanywhere.com/api-token-auth/"
 
@@ -29,7 +30,7 @@ class LoginForm extends React.Component {
             })
             let token_tmp = await result.json();
             if ('token' in token_tmp) {
-                setToken(token_tmp.token, username);
+                setToken(token_tmp.token);
                 onButtonClick();
             }
             else {
@@ -43,6 +44,16 @@ class LoginForm extends React.Component {
         }
     }
 
+    componentDidMount = async () => {
+        let cookie_loginned = CookiesManager.get('isLoginned');
+        let cookie_token = CookiesManager.get('token');
+        if (cookie_loginned === "true" && cookie_token) {
+            const { onButtonClick } = this.props;
+            const { setToken } = this.props;
+            setToken(cookie_token);
+            onButtonClick();
+        }
+    }
 
     render() {
         let { failedLogin } = this.state;

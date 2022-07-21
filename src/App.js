@@ -8,22 +8,26 @@ import NewRecord from './components/Tables/NewRecord';
 import ViewRecord from './components/Tables/ViewRecord';
 import NewTag from './components/Tables/NewTag';
 import Header from './components/header';
+import CookiesManager from 'js-cookie';
 
 class App extends React.Component {
   state = {
-    isUnloginned: false,
+    isLoginned: false,
     token: undefined,
-    name: undefined,
+    name: "Фисунов Антон Павлович",
     activeWindow: 'record',
     viewId: undefined,
   }
 
   hadleLoginClick = () => {
-    if (this.state.isUnloginned === false) {
-      this.setState({ isUnloginned: true })
+    if (this.state.isLoginned === false) {
+      this.setState({ isLoginned: true })
+      CookiesManager.set('isLoginned', true);
     }
     else {
-      this.setState({ isUnloginned: false })
+      CookiesManager.set('isLoginned', false);
+      CookiesManager.set('token', undefined);
+      this.setState({ isLoginned: false })
     }
   }
 
@@ -31,8 +35,9 @@ class App extends React.Component {
     this.setState({ activeWindow: new_window })
   }
 
-  setTokenandName = (s_token, t_name) => {
-    this.setState({ token: s_token, name: t_name })
+  setToken = (s_token) => {
+    this.setState({ token: s_token })
+    CookiesManager.set('token', s_token);
   }
 
   setView = (activeWindow, id) => {
@@ -42,7 +47,7 @@ class App extends React.Component {
   render() {
     return (
       <>
-        {this.state.isUnloginned ? <div >
+        {this.state.isLoginned === true ? <div >
           <Header onButtonClick={this.hadleLoginClick} name={this.state.name} />
           <div key='mainscreen' className='MainScreen'>
             <Navigator changeWindow={this.changeWindow} />
@@ -84,7 +89,7 @@ class App extends React.Component {
 
             })()}
           </div>
-        </div> : <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setTokenandName} />}
+        </div> : <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setToken} isLoginned={this.state.isLoginned} token={this.state.token} />}
       </>
     );
   }
