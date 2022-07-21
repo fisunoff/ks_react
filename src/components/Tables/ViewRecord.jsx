@@ -113,8 +113,8 @@ class ViewRecord extends React.Component{
         return (
             <div className='leftmodal'>
                 <div><h1>Просмотр и изменение записи</h1></div>
-                <div>Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} value = {record_data.title} /></div>
-                <div>Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} value = {record_data.text}/></div>
+                <div>Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} defaultValue = {record_data.title} /></div>
+                <div>Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} defaultValue = {record_data.text}/></div>
                 <div> Автор:
                     <select ref={ref => this.authorRef = ref}>
                         {this.state.authors.map((data) => (
@@ -129,9 +129,9 @@ class ViewRecord extends React.Component{
                         ))}
                     </select>
                 </div>
-                <div>Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} value = {record_data.status}/></div>
+                <div>Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue = {record_data.status}/></div>
                 
-                <button onClick={this.regRecord}>Создать</button>
+                <button onClick={this.regRecord}>Сохранить изменения</button>
                 {create_success? <div><h3 className='success'>Запись изменена!</h3></div>:
                     <div></div>
                 }

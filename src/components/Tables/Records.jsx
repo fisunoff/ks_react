@@ -3,6 +3,8 @@ import { DataGrid, GridToolbarQuickFilter, GridActionsCellItem, } from '@mui/x-d
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PreviewIcon from '@mui/icons-material/Preview';
+import NewRecord from './NewRecord';
+import "../modal.css";
 
 const url = "http://fisunoff.pythonanywhere.com/api/record/";
 
@@ -32,7 +34,12 @@ function QuickSearchToolbar() {
 class Records extends React.Component{
     state = {
         todos: [],
-        error: ""
+        error: "",
+        show: false,
+    }
+
+    DoUpdateAfterModal = async () => {
+        this.componentDidMount();
     }
 
     DeleteRecord = async (id) => {
@@ -107,7 +114,7 @@ class Records extends React.Component{
         }
         
         this.setState({
-            todos,
+            todos: todos,
         })
     }
     
@@ -116,9 +123,23 @@ class Records extends React.Component{
         const {error, todos} = this.state;
 
         return <div className='records'>
-            Records
+            <h1>Записи</h1>
+            <button><a href="#openModal">Новая запись</a></button>
+            <div id="openModal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Название</h3>
+                        <a href="#close" title="Close" class="close">×</a>
+                    </div>
+                    <div class="modal-body">    
+                        <NewRecord token = {this.props.token} update={this.DoUpdateAfterModal} className='modal-content'/>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <h2>{error}</h2>
-            <DataGrid rows={todos} columns={this.columns} pageSize={5} rowsPerPageOptions={[5]}
+            <DataGrid rows={todos} columns={this.columns} pageSize={20} rowsPerPageOptions={[20]}
             components={{ Toolbar: QuickSearchToolbar }}/>
         </div>
     }

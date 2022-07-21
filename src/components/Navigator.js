@@ -7,11 +7,6 @@ const buttonArray = [
         title: 'newauthor'
     },
     {
-        text: 'Новая запись',
-        icon: '',
-        title: 'newrecord'
-    },
-    {
         text: 'Новый тэг',
         icon: '',
         title: 'newtag'
@@ -41,7 +36,7 @@ class Navigator extends React.Component{
             <div className='navigator'>
             {buttonArray.map((button) => (
                     <div>
-                        <button className='nav-button' onClick={changeWindow.bind(this, button.title)}>{button.text}</button>
+                        <button className='nav-button' key={button.title} onClick={changeWindow.bind(this, button.title)}>{button.text}</button>
                     </div>
                 ))}
             </div>

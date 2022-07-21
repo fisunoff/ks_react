@@ -68,6 +68,7 @@ class NewRecord extends React.Component{
             let tmp = await result.json();
             if ('id' in tmp){
                 this.setState({create_success: true})
+                this.props.update();
             }
             else{
                 console.log(tmp);
@@ -108,7 +109,7 @@ class NewRecord extends React.Component{
                         ))}
                     </select>
                 </div>
-                <div>Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} value="Новый"/></div>
+                <div>Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue="Новый"/></div>
                 
                 <button onClick={this.regRecord}>Создать</button>
                 {create_success? <div><h3 className='success'>Запись добавлена!</h3></div>:
