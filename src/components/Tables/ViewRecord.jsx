@@ -5,11 +5,21 @@ const AUTHORS_URL = "https://fisunoff.pythonanywhere.com/api/author/"
 const TAGS_URL = "https://fisunoff.pythonanywhere.com/api/tags/"
 
 class ViewRecord extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
     state = {
         create_success: undefined,
         authors: [],
         tags: [],
         record_data: []
+    }
+
+    handleSubmit(event) {
+        this.regRecord();
+        event.preventDefault();
     }
 
     get_authors = async () => {
@@ -119,32 +129,32 @@ class ViewRecord extends React.Component {
         let { record_data } = this.state;
 
         return (
-            <div className='leftmodal'>
-                <div><h1>Просмотр и изменение записи</h1></div>
-                <div>Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} defaultValue={record_data.title} /></div>
-                <div>Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} defaultValue={record_data.text} /></div>
-                <div> Автор:
+            <form onSubmit={this.handleSubmit} key='RecordForm' className='leftmodal'>
+                <label><h1>Просмотр и изменение записи</h1></label>
+                <label>Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} defaultValue={record_data.title} /></label>
+                <label>Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} defaultValue={record_data.text} /></label>
+                <label> Автор:
                     <select ref={ref => this.authorRef = ref}>
                         {this.state.authors.map((data) => (
                             <option value={data.id} selected={data.id === record_data.author}>{data.name}</option>
                         ))}
                     </select>
-                </div>
-                <div> Тэг:
+                </label>
+                <label> Тэг:
                     <select ref={ref => this.tagRef = ref}>
                         {this.state.tags.map((data) => (
                             <option value={data.id} selected={data.id === record_data.tag}>{data.tag_title}</option>
                         ))}
                     </select>
-                </div>
-                <div>Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue={record_data.status} /></div>
+                </label>
+                <label>Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue={record_data.status} /></label>
 
-                <button onClick={this.regRecord}>Сохранить изменения</button>
+                <input type="submit" className='submit_btn' value="Сохранить" />
                 {create_success ? <div><h3 className='success'>Запись изменена!</h3></div> :
                     <div></div>
                 }
 
-            </div>
+            </form>
         )
     }
 }

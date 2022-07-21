@@ -3,8 +3,18 @@ import React from 'react';
 const TAGS_URL = "https://fisunoff.pythonanywhere.com/api/tags/"
 
 class NewTag extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
     state = {
         create_success: undefined,
+    }
+
+    handleSubmit(event) {
+        this.regAuthor();
+        event.preventDefault();
     }
 
     regAuthor = async () => {
@@ -45,18 +55,17 @@ class NewTag extends React.Component {
     render() {
         let { create_success } = this.state;
         return (
-            <div className='leftmodal'>
-                <div><h1>Новый автор</h1></div>
-                <div>Название: <input type="text" name="tag_title" size="30" maxLength="50" ref={ref => this.titleRef = ref} /></div>
-                <div>Приоритет: <input type="text" name="priority" size="30" maxLength="100" ref={ref => this.priorityRef = ref} /></div>
-                <div>Тэг используется <input type="checkbox" size="20" ref={ref => this.isActiveRef = ref} /></div>
+            <form onSubmit={this.handleSubmit} key='newTagForm' className='leftmodal'>
+                <label>Название: <input type="text" name="tag_title" size="30" maxLength="50" ref={ref => this.titleRef = ref} /></label>
+                <label>Приоритет: <input type="text" name="priority" size="30" maxLength="100" ref={ref => this.priorityRef = ref} /></label>
+                <label>Тэг используется <input type="checkbox" size="20" ref={ref => this.isActiveRef = ref} /></label>
 
-                <button onClick={this.regAuthor}>Создать</button>
+                <input type="submit" className='submit_btn' value="Создать" />
                 {create_success ? <div><h3 className='success'>Тэг добавлен!</h3></div> :
                     <div></div>
                 }
 
-            </div>
+            </form>
         )
     }
 }

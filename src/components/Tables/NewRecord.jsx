@@ -5,10 +5,20 @@ const AUTHORS_URL = "https://fisunoff.pythonanywhere.com/api/author/"
 const TAGS_URL = "https://fisunoff.pythonanywhere.com/api/tags/"
 
 class NewRecord extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
     state = {
         create_success: undefined,
         authors: [],
         tags: [],
+    }
+
+    handleSubmit(event) {
+        this.regRecord();
+        event.preventDefault();
     }
 
     get_authors = async () => {
@@ -97,31 +107,31 @@ class NewRecord extends React.Component {
         let { create_success } = this.state;
 
         return (
-            <div className='leftmodal'>
-                <div key="modal_new_title">Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} /></div>
-                <div key="modal_new_text">Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} /></div>
-                <div key="modal_new_author"> Автор:
+            <form onSubmit={this.handleSubmit} key='newRecordForm' className='leftmodal'>
+                <label key="modal_new_title">Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} /></label>
+                <label key="modal_new_text">Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} /></label>
+                <label key="modal_new_author"> Автор:
                     <select ref={ref => this.authorRef = ref}>
                         {this.state.authors.map((data) => (
                             <option value={data.id}>{data.name}</option>
                         ))}
                     </select>
-                </div>
-                <div key="modal_new_tag"> Тэг:
+                </label>
+                <label key="modal_new_tag"> Тэг:
                     <select ref={ref => this.tagRef = ref}>
                         {this.state.tags.map((data) => (
                             <option value={data.id}>{data.tag_title}</option>
                         ))}
                     </select>
-                </div>
-                <div key="modal_new_status">Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue="Новый" /></div>
+                </label>
+                <label key="modal_new_status">Статус: <input type="text" name="status" size="50" maxLength="50" ref={ref => this.statusRef = ref} defaultValue="Новый" /></label>
 
-                <button key="modal_new_create" onClick={this.regRecord}>Создать</button>
+                <input type="submit" className='submit_btn' value="Создать" />
                 {create_success ? <div key="modal_new_success"><h3 className='success'>Запись добавлена!</h3></div> :
                     <></>
                 }
 
-            </div>
+            </form>
         )
     }
 }
