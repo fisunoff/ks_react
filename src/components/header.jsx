@@ -1,21 +1,21 @@
 import React from 'react';
 
-class Header extends React.Component{
+class Header extends React.Component {
     handleClick = () => {
-        const {onButtonClick} = this.props;
+        const { onButtonClick } = this.props;
         onButtonClick();
     }
 
-    render(){
-        
+    render() {
 
-        return<div className='App-header'>
+
+        return <div className='App-header'>
             <div className='header'>
                 {this.props.name}
             </div>
-            <div className='escapeBtn'><button onClick={this.handleClick } className='escapeBtn' >Выйти</button></div>
-            
-        </div> 
+            <div className='escapeBtn'><button onClick={this.handleClick} className='escapeBtn' >Выйти</button></div>
+
+        </div>
     }
 }
 

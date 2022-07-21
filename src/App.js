@@ -19,72 +19,72 @@ class App extends React.Component {
   }
 
   hadleLoginClick = () => {
-    if (this.state.isUnloginned === false){
-      this.setState({isUnloginned: true})
+    if (this.state.isUnloginned === false) {
+      this.setState({ isUnloginned: true })
     }
-    else{
-      this.setState({isUnloginned: false})
+    else {
+      this.setState({ isUnloginned: false })
     }
   }
 
   changeWindow = (new_window) => {
-    this.setState({activeWindow: new_window})
+    this.setState({ activeWindow: new_window })
   }
 
   setTokenandName = (s_token, t_name) => {
-    this.setState({token: s_token, name: t_name})
+    this.setState({ token: s_token, name: t_name })
   }
 
   setView = (activeWindow, id) => {
-    this.setState({activeWindow: activeWindow, viewId: id})
+    this.setState({ activeWindow: activeWindow, viewId: id })
   }
 
   render() {
     return (
       <>
-        {this.state.isUnloginned? <div >
+        {this.state.isUnloginned ? <div >
           <Header onButtonClick={this.hadleLoginClick} name={this.state.name} />
           <div key='mainscreen' className='MainScreen'>
-            <Navigator changeWindow={this.changeWindow}/>
-            {(() => {  
-            switch (this.state.activeWindow) {
-              case 'records':
-                return (
-                  <Records token = {this.state.token} setView = {this.setView}/>
-                )
-              case 'authors':
-                return (
-                  <div>Authors</div>
-                )
-              case 'newauthor':
-                return (
-                  <NewAuthor token = {this.state.token} />
-                )
-              case 'newrecord':
-                return (
-                  <NewRecord token = {this.state.token} />
-                )
-              case 'viewrecord':
-                return (
-                  <ViewRecord token = {this.state.token} viewId = {this.state.viewId} />
-                )
-              case 'newtag':
-                return (
-                  <NewTag token = {this.state.token} />
-                )
-              case 'tags':
-                return (
-                  <div>tags</div>
-                )
-              default:
-                return (
-                  <Records token = {this.state.token} setView = {this.setView}/>
-                )
-            }
+            <Navigator changeWindow={this.changeWindow} />
+            {(() => {
+              switch (this.state.activeWindow) {
+                case 'records':
+                  return (
+                    <Records token={this.state.token} setView={this.setView} />
+                  )
+                case 'authors':
+                  return (
+                    <div>Authors</div>
+                  )
+                case 'newauthor':
+                  return (
+                    <NewAuthor token={this.state.token} />
+                  )
+                case 'newrecord':
+                  return (
+                    <NewRecord token={this.state.token} />
+                  )
+                case 'viewrecord':
+                  return (
+                    <ViewRecord token={this.state.token} viewId={this.state.viewId} />
+                  )
+                case 'newtag':
+                  return (
+                    <NewTag token={this.state.token} />
+                  )
+                case 'tags':
+                  return (
+                    <div>tags</div>
+                  )
+                default:
+                  return (
+                    <Records token={this.state.token} setView={this.setView} />
+                  )
+              }
 
-          })()}
-            </div>
-        </div>: <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setTokenandName} />}
+            })()}
+          </div>
+        </div> : <LoginForm onButtonClick={this.hadleLoginClick} setToken={this.setTokenandName} />}
       </>
     );
   }

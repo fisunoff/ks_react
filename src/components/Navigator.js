@@ -29,18 +29,18 @@ const buttonArray = [
     }
 ]
 
-class Navigator extends React.Component{
-    render(){
-        const {changeWindow} = this.props;
+class Navigator extends React.Component {
+    render() {
+        const { changeWindow } = this.props;
         return (
             <div className='navigator'>
-            {buttonArray.map((button) => (
+                {buttonArray.map((button) => (
                     <div key={button.title + 'div'}>
                         <button className='nav-button' key={button.title} onClick={changeWindow.bind(this, button.title)}>{button.text}</button>
                     </div>
                 ))}
             </div>
-        )        
+        )
     }
 }
 

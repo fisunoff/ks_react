@@ -13,25 +13,25 @@ const url = "http://fisunoff.pythonanywhere.com/api/record/";
 
 function QuickSearchToolbar() {
     return (
-      <Box
-        sx={{
-          p: 0.5,
-          pb: 0,
-        }}
-      >
-        <GridToolbarQuickFilter
-          quickFilterParser={(searchInput) =>
-            searchInput
-              .split(',')
-              .map((value) => value.trim())
-              .filter((value) => value !== '')
-          }
-        />
-      </Box>
+        <Box
+            sx={{
+                p: 0.5,
+                pb: 0,
+            }}
+        >
+            <GridToolbarQuickFilter
+                quickFilterParser={(searchInput) =>
+                    searchInput
+                        .split(',')
+                        .map((value) => value.trim())
+                        .filter((value) => value !== '')
+                }
+            />
+        </Box>
     );
-  }
+}
 
-class Records extends React.Component{
+class Records extends React.Component {
     state = {
         todos: [],
         error: "",
@@ -43,16 +43,16 @@ class Records extends React.Component{
     }
 
     DeleteRecord = async (id) => {
-        const {token} = this.props;
-        try{
+        const { token } = this.props;
+        try {
             const result = await fetch(url + id + '/', {
                 method: "DELETE",
-                headers:{
+                headers: {
                     'Authorization': 'Token ' + token
                 }
             });
             this.componentDidMount();
-        }catch (err){
+        } catch (err) {
             this.setState({
                 error: "Ошибка получения данных"
             }
@@ -61,66 +61,66 @@ class Records extends React.Component{
     }
 
     GoToRecord = async (id) => {
-        const {setView} = this.props;
+        const { setView } = this.props;
         setView("viewrecord", id);
     }
 
-    columns =  [
-    {
-        field: 'title',
-        headerName: 'Название',
-        width: 200
-    },
-    {
-        field: 'author',
-        headerName: 'Автор'
-    },
-    {
-        field: 'tag',
-        headerName: 'Тэг'
-    },
-    {
-        field: 'status',
-        headerName: 'Статус'
-    },
-    {
-        field: 'actions',
-        type: 'actions',
-        getActions: (params) => [
-            <>
-                <GridActionsCellItem icon={<DeleteIcon />} onClick={this.DeleteRecord.bind(this, params.id)} label="Delete" />
-                <GridActionsCellItem icon={<PreviewIcon />} onClick={this.GoToRecord.bind(this, params.id)} label="View" />
-            </>
-        ]
-    }
+    columns = [
+        {
+            field: 'title',
+            headerName: 'Название',
+            width: 200
+        },
+        {
+            field: 'author',
+            headerName: 'Автор'
+        },
+        {
+            field: 'tag',
+            headerName: 'Тэг'
+        },
+        {
+            field: 'status',
+            headerName: 'Статус'
+        },
+        {
+            field: 'actions',
+            type: 'actions',
+            getActions: (params) => [
+                <>
+                    <GridActionsCellItem icon={<DeleteIcon />} onClick={this.DeleteRecord.bind(this, params.id)} label="Delete" />
+                    <GridActionsCellItem icon={<PreviewIcon />} onClick={this.GoToRecord.bind(this, params.id)} label="View" />
+                </>
+            ]
+        }
 
-]
+    ]
 
     componentDidMount = async () => {
-        const {token} = this.props;
+        const { token } = this.props;
         let todos = []
-        try{
+        try {
             const result = await fetch(url, {
                 method: "GET",
-                headers:{
+                headers: {
                     'Authorization': 'Token ' + token
                 }
             })
             todos = await result.json();
-        }catch (err){
+        } catch (err) {
             this.setState({
                 error: "Ошибка получения данных"
             })
         }
-        
+
         this.setState({
             todos: todos,
         })
     }
-    
 
-    render(){
-        const {error, todos} = this.state;
+
+    render() {
+        const { error, todos } = this.state;
 
         return <div className='records'>
             <h1>Записи</h1>
@@ -128,19 +128,19 @@ class Records extends React.Component{
             <div id="openModal" className="modal">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                    <div className="modal-header">
-                        <h3 className="modal-title">Новая запись</h3>
-                        <a href="#close" title="Close" className="close">×</a>
-                    </div>
-                    <div className="modal-body">    
-                        <NewRecord token = {this.props.token} update={this.DoUpdateAfterModal} className='modal-content'/>
-                    </div>
+                        <div className="modal-header">
+                            <h3 className="modal-title">Новая запись</h3>
+                            <a href="#close" title="Close" className="close">×</a>
+                        </div>
+                        <div className="modal-body">
+                            <NewRecord token={this.props.token} update={this.DoUpdateAfterModal} className='modal-content' />
+                        </div>
                     </div>
                 </div>
             </div>
             <h2>{error}</h2>
             <DataGrid rows={todos} columns={this.columns} pageSize={20} rowsPerPageOptions={[20]}
-            components={{ Toolbar: QuickSearchToolbar }}/>
+                components={{ Toolbar: QuickSearchToolbar }} />
         </div>
     }
 }

@@ -29,19 +29,20 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 
-.MainScreen{
+.MainScreen {
   min-height: calc(100vh - 10px - 3vmin);
   display: flex;
   flex-direction: row;
 }
 
-.navigator{
+.navigator {
   background-color: lightgrey;
   flex: 1;
   display: flex;
@@ -52,33 +53,33 @@
 }
 
 
-.records{
+.records {
   background-color: white;
   flex: 6;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 }
 
-.leftmodal{
+.leftmodal {
   background-color: white;
   flex: 6;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 }
 
-.escapeBtn{
+.escapeBtn {
   color: red;
   justify-content: right;
 }
 
-.header{
+.header {
   justify-content: left;
 }
 
-.success{
+.success {
   color: green;
 }
 
-.fail{
+.fail {
   color: red;
 }
