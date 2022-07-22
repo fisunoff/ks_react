@@ -3,11 +3,11 @@ import { DataGrid, GridToolbarQuickFilter, GridActionsCellItem, } from '@mui/x-d
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PreviewIcon from '@mui/icons-material/Preview';
-import NewAuthor from './NewAuthor';
-import ViewAuthor from './ViewAuthor';
+import NewTag from './NewTag';
+import ViewTag from './ViewTag';
 import "../modal.css";
 
-const url = "http://fisunoff.pythonanywhere.com/api/author/";
+const url = "http://fisunoff.pythonanywhere.com/api/tags/";
 
 
 
@@ -32,7 +32,7 @@ function QuickSearchToolbar() {
     );
 }
 
-class Authors extends React.Component {
+class Tags extends React.Component {
     state = {
         todos: [],
         error: "",
@@ -72,18 +72,18 @@ class Authors extends React.Component {
 
     columns = [
         {
-            field: 'name',
-            headerName: 'Имя',
+            field: 'tag_title',
+            headerName: 'Тэг',
             width: 200
         },
         {
-            field: 'department',
-            headerName: 'Подразделение',
+            field: 'priority',
+            headerName: 'Приоритет',
             width: 200
         },
         {
-            field: 'is_active',
-            headerName: 'Активная учетная запись'
+            field: 'active_tag',
+            headerName: 'Активный тэг'
         },
         {
             field: 'actions',
@@ -145,16 +145,16 @@ class Authors extends React.Component {
 
         return <div className='records'>
             <h1>Список авторов</h1>
-            <a href="#openModal"><button>Новый автор</button></a>
+            <a href="#openModal"><button>Новый тэг</button></a>
             <div id="openModal" className="modal">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h3 className="modal-title">Новый автор</h3>
+                            <h3 className="modal-title">Новый тэг</h3>
                             <a href="#close" title="Close" className="close">×</a>
                         </div>
                         <div className="modal-body">
-                            <NewAuthor token={this.props.token} update={this.DoUpdateAfterModal} className='modal-content' />
+                            <NewTag token={this.props.token} update={this.DoUpdateAfterModal} className='modal-content' />
                         </div>
                     </div>
                 </div>
@@ -169,7 +169,7 @@ class Authors extends React.Component {
                                 <a href="#closeview" title="Close" className="close">×</a>
                             </div>
                             <div className="modal-body">
-                                <ViewAuthor token={this.props.token} viewId={this.state.edit_id} key={"view" + this.state.edit_id} update={this.DoUpdateAfterModal} />
+                                <ViewTag token={this.props.token} viewId={this.state.edit_id} key={"view" + this.state.edit_id} update={this.DoUpdateAfterModal} />
                             </div>
                         </div>
                     </div>
@@ -183,4 +183,4 @@ class Authors extends React.Component {
     }
 }
 
-export default Authors;
+export default Tags;

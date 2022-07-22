@@ -3,12 +3,10 @@ import React from 'react';
 import LoginForm from './components/LoginForm'
 import Navigator from './components/Navigator'
 import Records from './components/Tables/Records';
-import NewAuthor from './components/Tables/NewAuthor';
-import NewRecord from './components/Tables/NewRecord';
-import ViewRecord from './components/Tables/ViewRecord';
-import NewTag from './components/Tables/NewTag';
 import Header from './components/header';
 import CookiesManager from 'js-cookie';
+import Authors from './components/Tables/Authors';
+import Tags from './components/Tables/Tags';
 
 class App extends React.Component {
   state = {
@@ -59,27 +57,11 @@ class App extends React.Component {
                   )
                 case 'authors':
                   return (
-                    <div>Authors</div>
-                  )
-                case 'newauthor':
-                  return (
-                    <NewAuthor token={this.state.token} />
-                  )
-                case 'newrecord':
-                  return (
-                    <NewRecord token={this.state.token} />
-                  )
-                case 'viewrecord':
-                  return (
-                    <ViewRecord token={this.state.token} viewId={this.state.viewId} />
-                  )
-                case 'newtag':
-                  return (
-                    <NewTag token={this.state.token} />
+                    <Authors token={this.state.token} setView={this.setView} />
                   )
                 case 'tags':
                   return (
-                    <div>tags</div>
+                    <Tags token={this.state.token} setView={this.setView} />
                   )
                 default:
                   return (

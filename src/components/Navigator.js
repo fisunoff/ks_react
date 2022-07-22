@@ -2,16 +2,6 @@ import React from 'react';
 
 const buttonArray = [
     {
-        text: 'Новый автор',
-        icon: '',
-        title: 'newauthor'
-    },
-    {
-        text: 'Новый тэг',
-        icon: '',
-        title: 'newtag'
-    },
-    {
         text: 'Все теги',
         icon: '',
         title: 'tags'

@@ -20,7 +20,7 @@ class NewAuthor extends React.Component {
         const { token } = this.props;
         let name = this.nameRef.value;
         let department = this.departmentRef.value;
-        let is_active = this.isactiveRef.value;
+        let is_active = this.isactiveRef.checked;
         try {
             const result = await fetch(AUTHORS_URL, {
                 method: "POST",
@@ -36,7 +36,8 @@ class NewAuthor extends React.Component {
             })
             let tmp = await result.json();
             if ('id' in tmp) {
-                this.setState({ create_success: true })
+                this.setState({ create_success: true });
+                this.props.update();
             }
             else {
                 console.log(tmp);

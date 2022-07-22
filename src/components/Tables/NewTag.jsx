@@ -13,15 +13,15 @@ class NewTag extends React.Component {
     }
 
     handleSubmit(event) {
-        this.regAuthor();
+        this.regTag();
         event.preventDefault();
     }
 
-    regAuthor = async () => {
+    regTag = async () => {
         const { token } = this.props;
         let title = this.titleRef.value;
         let priority = this.priorityRef.value;
-        let active_tag = this.isActiveRef.value;
+        let active_tag = this.isActiveRef.checked;
         try {
             const result = await fetch(TAGS_URL, {
                 method: "POST",
@@ -38,6 +38,7 @@ class NewTag extends React.Component {
             let tmp = await result.json();
             if ('id' in tmp) {
                 this.setState({ create_success: true })
+                this.props.update();
             }
             else {
                 console.log(tmp);
