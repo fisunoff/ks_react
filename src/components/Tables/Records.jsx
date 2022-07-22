@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PreviewIcon from '@mui/icons-material/Preview';
 import NewRecord from './NewRecord';
+import ViewRecord from './ViewRecord';
 import "../modal.css";
 
 const url = "http://fisunoff.pythonanywhere.com/api/record/";
@@ -36,10 +37,15 @@ class Records extends React.Component {
         todos: [],
         error: "",
         show: false,
+        edit_id: undefined,
     }
 
     DoUpdateAfterModal = async () => {
         this.componentDidMount();
+    }
+
+    DoUpdateAfterEdit = async () => {
+        this.UpdateTable(this.state.edit_id);
     }
 
     DeleteRecord = async (id) => {
@@ -61,8 +67,7 @@ class Records extends React.Component {
     }
 
     GoToRecord = async (id) => {
-        const { setView } = this.props;
-        setView("viewrecord", id);
+        this.setState({ edit_id: id });
     }
 
     columns = [
@@ -89,7 +94,7 @@ class Records extends React.Component {
             getActions: (params) => [
                 <>
                     <GridActionsCellItem icon={<DeleteIcon />} onClick={this.DeleteRecord.bind(this, params.id)} label="Delete" />
-                    <GridActionsCellItem icon={<PreviewIcon />} onClick={this.GoToRecord.bind(this, params.id)} label="View" />
+                    <GridActionsCellItem icon={<PreviewIcon />} onClick={this.GoToRecord.bind(this, params.id)} href="#viewModal" label="View" />
                 </>
             ]
         }
@@ -118,6 +123,25 @@ class Records extends React.Component {
         })
     }
 
+    UpdateTable = async (updated_id) => {
+        let todos = this.state.todos;
+        const { token } = this.props;
+        try {
+            const result = await fetch(url + updated_id + '/', {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Token ' + token
+                }
+            })
+            let tmp = await result.json();
+            debugger;
+        } catch (err) {
+            this.setState({
+                error: "Ошибка получения данных"
+            })
+        }
+    }
+
 
     render() {
         const { error, todos } = this.state;
@@ -138,6 +162,23 @@ class Records extends React.Component {
                     </div>
                 </div>
             </div>
+
+            {this.state.edit_id ? <>
+                <div id="viewModal" className="modal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h3 className="modal-title">Просмотр и изменение записи</h3>
+                                <a href="#closeview" title="Close" className="close">×</a>
+                            </div>
+                            <div className="modal-body">
+                                <ViewRecord token={this.props.token} viewId={this.state.edit_id} key={"view" + this.state.edit_id} update={this.DoUpdateAfterModal} />
+                            </div>
+                        </div>
+                    </div>
+                </div></> :
+                <></>
+            }
             <h2>{error}</h2>
             <DataGrid rows={todos} columns={this.columns} pageSize={20} rowsPerPageOptions={[20]}
                 components={{ Toolbar: QuickSearchToolbar }} />

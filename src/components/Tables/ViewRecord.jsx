@@ -82,14 +82,15 @@ class ViewRecord extends React.Component {
 
     regRecord = async () => {
         const { token } = this.props;
+        const { viewId } = this.props;
         let title = this.titleRef.value;
         let text = this.textRef.value;
         let author = this.authorRef.value;
         let tag = this.tagRef.value;
         let status = this.statusRef.value;
         try {
-            const result = await fetch(RECORDS_URL, {
-                method: "POST",
+            const result = await fetch(RECORDS_URL + viewId + '/', {
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Token ' + token
@@ -103,8 +104,10 @@ class ViewRecord extends React.Component {
                 })
             })
             let tmp = await result.json();
+            debugger;
             if ('id' in tmp) {
                 this.setState({ create_success: true })
+                this.props.update()
             }
             else {
                 console.log(tmp);
@@ -130,7 +133,6 @@ class ViewRecord extends React.Component {
 
         return (
             <form onSubmit={this.handleSubmit} key='RecordForm' className='leftmodal'>
-                <label><h1>Просмотр и изменение записи</h1></label>
                 <label>Название: <input type="text" name="title" size="50" maxLength="50" ref={ref => this.titleRef = ref} defaultValue={record_data.title} /></label>
                 <label>Текст записи: <textarea type="text" name="text" size="80" maxLength="1000" ref={ref => this.textRef = ref} defaultValue={record_data.text} /></label>
                 <label> Автор:
