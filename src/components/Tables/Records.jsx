@@ -44,9 +44,6 @@ class Records extends React.Component {
         this.componentDidMount();
     }
 
-    DoUpdateAfterEdit = async () => {
-        this.UpdateTable(this.state.edit_id);
-    }
 
     DeleteRecord = async (id) => {
         const { token } = this.props;
@@ -68,6 +65,28 @@ class Records extends React.Component {
 
     GoToRecord = async (id) => {
         this.setState({ edit_id: id });
+    }
+
+    SetTodos = async () => {
+        const { token } = this.props;
+        let todos = []
+        try {
+            const result = await fetch(url, {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Token ' + token
+                }
+            })
+            todos = await result.json();
+        } catch (err) {
+            this.setState({
+                error: "Ошибка получения данных"
+            })
+        }
+
+        this.setState({
+            todos: todos,
+        })
     }
 
     columns = [
@@ -102,46 +121,8 @@ class Records extends React.Component {
     ]
 
     componentDidMount = async () => {
-        const { token } = this.props;
-        let todos = []
-        try {
-            const result = await fetch(url, {
-                method: "GET",
-                headers: {
-                    'Authorization': 'Token ' + token
-                }
-            })
-            todos = await result.json();
-        } catch (err) {
-            this.setState({
-                error: "Ошибка получения данных"
-            })
-        }
-
-        this.setState({
-            todos: todos,
-        })
+        this.SetTodos();
     }
-
-    UpdateTable = async (updated_id) => {
-        let todos = this.state.todos;
-        const { token } = this.props;
-        try {
-            const result = await fetch(url + updated_id + '/', {
-                method: "GET",
-                headers: {
-                    'Authorization': 'Token ' + token
-                }
-            })
-            let tmp = await result.json();
-            debugger;
-        } catch (err) {
-            this.setState({
-                error: "Ошибка получения данных"
-            })
-        }
-    }
-
 
     render() {
         const { error, todos } = this.state;
